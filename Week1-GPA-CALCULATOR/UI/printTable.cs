@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Week1_GPA_CALCULATOR.UI
@@ -26,6 +28,7 @@ namespace Week1_GPA_CALCULATOR.UI
 
             myOptions = Console.ReadLine();
 
+      
             switch (myOptions)
             {
                 case "1":
@@ -41,6 +44,11 @@ namespace Week1_GPA_CALCULATOR.UI
                 case "3":
                     break;
 
+                default:                    
+                    Console.Clear();
+                    Console.WriteLine("Please enter 1, 2 or 3");
+                    menuOptions();
+                    break;
             }
         }
 
@@ -49,6 +57,7 @@ namespace Week1_GPA_CALCULATOR.UI
             
             Console.WriteLine("User Manual\n" +
                 "This is to teach you how to manage this application");
+            
 
             menuOptions();
 
@@ -58,8 +67,13 @@ namespace Week1_GPA_CALCULATOR.UI
         {
             Console.WriteLine("Enter Number of Courses:");
 
-            int size = Convert.ToInt32(Console.In.ReadLine()); 
-            
+            int size;// = Convert.ToInt32(Console.In.ReadLine());
+            while (!int.TryParse(Console.ReadLine(), out size))
+            {
+                Console.Write("This is not valid input. Please enter an integer value: ");
+            }
+
+
             string[] Course_Code = new string[size];
             int[] Course_unit = new int[size];   //to be summed
             Char[] Grade = new char[size];
@@ -72,14 +86,33 @@ namespace Week1_GPA_CALCULATOR.UI
             
             for (int i = 0; i <size; i++)
             {
+                Course_Code:
                 Console.WriteLine("Enter course Code {0}: ", i+1);
-                Course_Code[i] = Console.In.ReadLine();
+                Course_Code[i] = Console.In.ReadLine();                          
+                var validate = new Regex(@"^[A-Za-z]{1,5}[0-9]{3}$");
+                if (!validate.IsMatch(Course_Code[i]))
+                {
+                    Console.WriteLine("Course code doesn't match");
+                    goto Course_Code;
+                }
+
+               
 
                 Console.WriteLine("Enter Course unit {0}: ", i + 1);
-                Course_unit[i] = int.Parse(Console.ReadLine());
+                //Course_unit[i] = int.Parse(Console.ReadLine());                                
+                while (!int.TryParse(Console.ReadLine(), out Course_unit[i]))
+                {
+                    Console.Write("This is not valid input. Please enter an integer value: ");
+                }
+
 
                 Console.WriteLine("Enter course Score {0}: ", i + 1);
-                Course_score[i] = double.Parse(Console.ReadLine());
+                //Course_score[i] = double.Parse(Console.ReadLine());
+                while (!double.TryParse(Console.ReadLine(), out Course_score[i]))
+                {
+                    Console.Write("This is not valid input. Please enter an integer value: ");
+                }
+
 
                 if (Course_score[i] >= 70 && Course_score[i] <= 100)
                 {
@@ -117,11 +150,16 @@ namespace Week1_GPA_CALCULATOR.UI
                     Remark[i] = "Pass";
                     Weight_pt[i] = Course_unit[i] * Grade_Unit[i];
                 }else
+                if (Course_score[i] <= 39)
                   {
                     Grade[i] = 'F';
                     Grade_Unit[i] = 0;
                     Remark[i] = "Fail";
                     Weight_pt[i] = Course_unit[i] * Grade_Unit[i];
+                }
+                else
+                {
+                    Console.WriteLine(" maximum score is 100");
                 }
 
                 
