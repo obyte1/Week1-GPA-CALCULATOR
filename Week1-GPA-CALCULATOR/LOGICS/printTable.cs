@@ -10,19 +10,24 @@ namespace Week1_GPA_CALCULATOR.UI
 {
     public static class printTable
     {
-        internal static void gpaTable()
+        public static void colorRed()
         {
-            
-           
-                              
+            Console.ForegroundColor = ConsoleColor.Red;
         }
+        public static void colorWhite()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
 
         public static void menuOptions()
         {
-            Console.WriteLine("WHAT DO YOU WANT TO DO");
+            Console.WriteLine("\n          PLEASE SELECT AN OPTION TO CONTINUE          \n");
             Console.WriteLine("Press 1 To read instructions");
             Console.WriteLine("Press 2 For GPA calculator");
-            Console.WriteLine("Press 3 To Exit");
+            Console.WriteLine("Press 3 To Exit\n\n");
+
+            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
             string myOptions;
 
@@ -46,7 +51,9 @@ namespace Week1_GPA_CALCULATOR.UI
 
                 default:                    
                     Console.Clear();
-                    Console.WriteLine("Please enter 1, 2 or 3");
+                    colorRed();
+                    Console.WriteLine("\nPlease enter 1, 2 or 3 to continue:\n");
+                    colorWhite();
                     menuOptions();
                     break;
             }
@@ -55,12 +62,20 @@ namespace Week1_GPA_CALCULATOR.UI
         public static void Instructions()
         {
             
-            Console.WriteLine("User Manual\n" +
-                "This is to teach you how to manage this application");
+            Console.WriteLine("\n+++++++User Manual++++++\n" +
+
+                "Hello Dear\n" +
+                "Welcome to GPA Calculator by Obyte\n" +
+                "this Manual will guide you on how to use this application\n" +
+                "To get started with GPA calculation Kindly follow the instructions and type the exact format the input requires\n" +
+                "\nTo get started with the calculation Press the option 2 then follow the instructions\n" +
+                "Course code is Alfa-Numeric example MAt101, C#111, Course unit is Positive Intergers only it doesnt take Negative intergers\n" +
+                "course score take 0-100, it can not be negative or above 100\n" +
+                "Every othe thing will be calculated Automatically\n " +
+                "\n if you find this from my Github kindly follow me or reach out to me On ocobute@gmail.com\n" +
+                "Thanks for using this app\n\n");
             
-
             menuOptions();
-
         }
 
         public static void GPA_calc()
@@ -70,7 +85,9 @@ namespace Week1_GPA_CALCULATOR.UI
             int size;// = Convert.ToInt32(Console.In.ReadLine());
             while (!int.TryParse(Console.ReadLine(), out size))
             {
+                colorRed();
                 Console.Write("This is not valid input. Please enter an integer value: ");
+                colorWhite();
             }
 
 
@@ -89,31 +106,53 @@ namespace Week1_GPA_CALCULATOR.UI
                 Course_Code:
                 Console.WriteLine("Enter course Code {0}: ", i+1);
                 Course_Code[i] = Console.In.ReadLine();                          
-                var validate = new Regex(@"^[A-Za-z]{1,5}[0-9]{3}$");
+                var validate = new Regex(@"^[A-Za-z]{2,3}[0-9]{3}$");
                 if (!validate.IsMatch(Course_Code[i]))
                 {
-                    Console.WriteLine("Course code doesn't match");
+                    colorRed();
+                    Console.WriteLine("Type a Valid Course code eg. Mat101, C#111 ");
+                    colorWhite();
                     goto Course_Code;
                 }
 
                
-
+                CourseUnitPoint:
                 Console.WriteLine("Enter Course unit {0}: ", i + 1);
                 //Course_unit[i] = int.Parse(Console.ReadLine());                                
                 while (!int.TryParse(Console.ReadLine(), out Course_unit[i]))
                 {
-                    Console.Write("This is not valid input. Please enter an integer value: ");
+                    colorRed();
+                    Console.Write("This is not a valid input. Please enter an integer value: ");
+                    colorWhite();
+                }
+                if(Course_unit[i] <= 0 || Course_unit[i]>10)
+                {
+                    colorRed();
+                    Console.WriteLine("Course Unit can not Be Negative or Above 10");
+                    colorWhite();
+                    goto CourseUnitPoint;
                 }
 
-
+                Course_score:
                 Console.WriteLine("Enter course Score {0}: ", i + 1);
                 //Course_score[i] = double.Parse(Console.ReadLine());
                 while (!double.TryParse(Console.ReadLine(), out Course_score[i]))
                 {
+                    colorRed();
                     Console.Write("This is not valid input. Please enter an integer value: ");
+                    colorWhite();
                 }
 
 
+
+                if(Course_score[i] > 100)
+                {
+                    colorRed();
+                    Console.WriteLine("maximum score is 100 ");
+                    colorWhite();
+                    goto Course_score;
+                }
+                else
                 if (Course_score[i] >= 70 && Course_score[i] <= 100)
                 {
                     Grade[i] = 'A';
@@ -122,50 +161,43 @@ namespace Week1_GPA_CALCULATOR.UI
                     Weight_pt[i] = Course_unit[i] * Grade_Unit[i];
                 }
                 else 
-                if(Course_score[i] >= 60)
+                if(Course_score[i] >= 60 && Course_score[i] <= 69)
                 {
                     Grade[i] = 'B';
                     Grade_Unit[i] = 4;
                     Remark[i] = "Very Good";
                     Weight_pt[i] = Course_unit[i] * Grade_Unit[i];
                 }else
-                if(Course_score[i] >= 50)
+                if(Course_score[i] >= 50 && Course_score[i] <= 49)
                 {
                     Grade[i] = 'C';
                     Grade_Unit[i] = 3;
                     Remark[i] = "Good";
                     Weight_pt[i] = Course_unit[i] * Grade_Unit[i];
                 }else
-                 if (Course_score[i] >= 45)
+                 if (Course_score[i] >= 45 && Course_score[i] <= 59)
                 {
                     Grade[i] = 'D';
                     Grade_Unit[i] = 2;
                     Remark[i] = "Fair";
                     Weight_pt[i] = Course_unit[i] * Grade_Unit[i];
                 }else
-                 if (Course_score[i] >= 40)
+                 if (Course_score[i] >= 40 && Course_score[i] <= 44)
                 {
                     Grade[i] = 'E';
                     Grade_Unit[i] = 1;
                     Remark[i] = "Pass";
                     Weight_pt[i] = Course_unit[i] * Grade_Unit[i];
                 }else
-                if (Course_score[i] <= 39)
+                 if (Course_score[i] >= 0 && Course_score[i] <= 39)
                   {
                     Grade[i] = 'F';
                     Grade_Unit[i] = 0;
                     Remark[i] = "Fail";
                     Weight_pt[i] = Course_unit[i] * Grade_Unit[i];
-                }
-                else
-                {
-                    Console.WriteLine(" maximum score is 100");
-                }
-
-                
-
-            }
-            
+                  }                
+                                
+            }            
             double ttotal_unitRgt = Course_unit.Sum();
             double totalCourse_score = Course_score.Sum();
             double total_weightpt = Weight_pt.Sum();
@@ -183,10 +215,11 @@ namespace Week1_GPA_CALCULATOR.UI
             }
             Console.WriteLine("  |----------------|--------------|----------|------------|-----------|----------------|\n");
 
+            Console.WriteLine("   Total course unit Registered is:"+ ttotal_unitRgt + "\n");
+            Console.WriteLine("   Total weight Piont is:" + total_weightpt + "\n");            
+            Console.WriteLine($"  GPA: {GPA}\n\n");
 
-            Console.WriteLine($"GPA: {GPA}");
-
-            Console.WriteLine("welcome to GPA Calculator");
+            
             menuOptions();
 
         }

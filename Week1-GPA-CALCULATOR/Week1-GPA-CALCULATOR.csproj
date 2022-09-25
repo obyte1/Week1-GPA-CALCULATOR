@@ -45,8 +45,8 @@
   <ItemGroup>
     <Compile Include="APP\GPA_CALCULATOR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\printTable.cs" />
-    <Compile Include="UI\Welcome_msg.cs" />
+    <Compile Include="LOGICS\printTable.cs" />
+    <Compile Include="LOGICS\Welcome_msg.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="APP\App.config" />
