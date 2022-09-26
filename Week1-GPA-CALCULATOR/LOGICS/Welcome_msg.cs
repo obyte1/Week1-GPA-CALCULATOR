@@ -16,9 +16,9 @@ namespace Week1_GPA_CALCULATOR.UI
 
             //Text color
             Console.ForegroundColor = ConsoleColor.White;
-            
+
 
             Console.WriteLine("\n\n ********************************** WELCOME TO WEEK ONE TASK **********************************\n");
-        }     
+        }
     }
 }

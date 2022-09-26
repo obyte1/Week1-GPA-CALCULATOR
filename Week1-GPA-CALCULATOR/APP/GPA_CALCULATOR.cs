@@ -9,18 +9,16 @@ namespace Week1_GPA_CALCULATOR
 {
     internal class GPA_CALCULATOR
     {
-       
+
         static void Main(string[] args)
         {
-           // Welcome_msg.centrilize();
-            
+            // Welcome_msg.centrilize();
+
             Welcome_msg.welcome();
             printTable.menuOptions();
 
-           // Welcome_msg.pressEnterToContinue();
-            
+            // Welcome_msg.pressEnterToContinue();
 
-            
         }
     }
 }
