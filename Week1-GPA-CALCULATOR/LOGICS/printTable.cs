@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleTables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Week1_GPA_CALCULATOR.LOGICS;
+
 
 namespace Week1_GPA_CALCULATOR.UI
 {
@@ -26,7 +28,7 @@ namespace Week1_GPA_CALCULATOR.UI
             Console.WriteLine("\n          PLEASE SELECT AN OPTION TO CONTINUE          \n");
             Console.WriteLine("Press 1 To read instructions");
             Console.WriteLine("Press 2 For GPA calculator");
-            Console.WriteLine("Press 3 To Exit\n\n");
+            Console.WriteLine("Press 3 To Exit\n");
 
             Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
@@ -63,9 +65,8 @@ namespace Week1_GPA_CALCULATOR.UI
         public static void GPA_calc()
         {
             Console.WriteLine("Enter Number of Courses:");
-
             int size;// = Convert.ToInt32(Console.In.ReadLine());
-            while (!int.TryParse(Console.ReadLine(), out size))
+            while (!int.TryParse(Console.ReadLine(), out size) || size <= 0)
             {
                 colorRed();
                 Console.Write("This is not valid input. Please enter an integer value: ");
@@ -85,37 +86,29 @@ namespace Week1_GPA_CALCULATOR.UI
             {
             Course_Code:
                 Console.WriteLine("Enter course Code {0}: ", i + 1);
-                Course_Code[i] = Console.In.ReadLine();
-                var validate = new Regex(@"^[A-Za-z]{1,3}[#]?[0-9]{3}$");               
+                Course_Code[i] = Console.ReadLine();
+                var validate = new Regex(@"^[A-Za-z]{1,3}[#]?[0-9]{3}$"); 
+                
                 if (!validate.IsMatch(Course_Code[i]))
-                {
-                    colorRed();
+                {   colorRed();
                     Console.WriteLine("Type a Valid Course code eg. Mat101, C#111 ");
                     colorWhite();
-                    goto Course_Code;
-                    
+                    goto Course_Code;                    
                 }
-
-            CourseUnitPoint:
+            
                 Console.WriteLine("Enter Course unit {0}: ", i + 1);                                               
-                while (!int.TryParse(Console.ReadLine(), out Course_unit[i]))
+                while (!int.TryParse(Console.ReadLine(), out Course_unit[i]) || Course_unit[i] <= 0 || Course_unit[i] > 10)
                 {
                     colorRed();
                     Console.Write("This is not a valid input. Please enter an integer value: ");
                     colorWhite();
                 }
-                if (Course_unit[i] <= 0 || Course_unit[i] > 10)
-                {
-                    colorRed();
-                    Console.WriteLine("Course Unit can not Be Negative or Above 10");
-                    colorWhite();
-                    goto CourseUnitPoint;
-                }
+                
 
             Course_score:
                 Console.WriteLine("Enter course Score {0}: ", i + 1);
                 //Course_score[i] = double.Parse(Console.ReadLine());
-                while (!double.TryParse(Console.ReadLine(), out Course_score[i]))
+                while (!double.TryParse(Console.ReadLine(), out Course_score[i]) || Course_score[i] < 0 || Course_score[i] > 100)
                 {
                     colorRed();
                     Console.Write("This is not valid input. Please enter an integer value: ");
@@ -185,20 +178,19 @@ namespace Week1_GPA_CALCULATOR.UI
 
             Double GPA = total_weightpt / ttotal_unitRgt;
             GPA = Math.Round(GPA, 2);
+            Console.WriteLine("\n");
 
+            var table = new ConsoleTable($"COURSE & CODE", $"COURSE UNIT", $"GRADE", $"GRADE UNIT", $"WEIGHT POINT", $"REMARK");
 
-            Console.WriteLine(" \n\n |----------------|--------------|----------|------------|-----------|----------------|\n " +
-                                   " | COURSE & CODE  | COURSE UNIT  | GRADE    | GRADE-UNIT | WEIGHT PT | REMARK         |\n" +
-                                   " |----------------|--------------|----------|------------|-----------|----------------|\n");
             for (int i = 0; i < size; i++)
             {
-                Console.WriteLine($"   {Course_Code[i]}        | {Course_unit[i]}            |      {Grade[i]}    |       {Grade_Unit[i]}   |   {Weight_pt[i]}      |  {Remark[i]}");
+                table.AddRow($"{Course_Code[i].ToUpper()}", $"{Course_unit[i]}" ,$"{Grade[i]}", $"{Grade_Unit[i]}", $"{Weight_pt[i]}",$"{Remark[i]}");
             }
-            Console.WriteLine("  |----------------|--------------|----------|------------|-----------|----------------|\n");
-
-            Console.WriteLine("   Total course unit Registered is:" + ttotal_unitRgt + "\n");
-            Console.WriteLine("   Total weight Piont is:" + total_weightpt + "\n");
-            Console.WriteLine($"  GPA: {GPA}\n\n");
+            
+            Console.WriteLine(table + "\n");
+            Console.WriteLine("Total course unit Registered is:" + ttotal_unitRgt);
+            Console.WriteLine("Total weight Piont is:" + total_weightpt );
+            Console.WriteLine($"GPA: {GPA}\n\n");
 
 
             menuOptions();

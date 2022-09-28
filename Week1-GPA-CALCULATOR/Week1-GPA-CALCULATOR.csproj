@@ -33,6 +33,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ConsoleTables, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConsoleTables.2.4.2\lib\net40\ConsoleTables.dll</HintPath>
+    </Reference>
+    <Reference Include="DustInTheWind.ConsoleTools, Version=0.4.0.41054, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConsoleTools.0.4.0\lib\net461\DustInTheWind.ConsoleTools.dll</HintPath>
+    </Reference>
+    <Reference Include="DustInTheWind.ConsoleTools.Controls, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConsoleTools.Controls.1.1.0\lib\netstandard2.0\DustInTheWind.ConsoleTools.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="DustInTheWind.ConsoleTools.Controls.Menus, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConsoleTools.Controls.Menus.1.1.0\lib\netstandard2.0\DustInTheWind.ConsoleTools.Controls.Menus.dll</HintPath>
+    </Reference>
+    <Reference Include="DustInTheWind.ConsoleTools.Controls.Spinners, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConsoleTools.Controls.Spinners.1.1.0\lib\netstandard2.0\DustInTheWind.ConsoleTools.Controls.Spinners.dll</HintPath>
+    </Reference>
+    <Reference Include="DustInTheWind.ConsoleTools.Controls.Tables, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConsoleTools.Controls.Tables.1.1.0\lib\netstandard2.0\DustInTheWind.ConsoleTools.Controls.Tables.dll</HintPath>
+    </Reference>
+    <Reference Include="DustInTheWind.ConsoleTools.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConsoleTools.Core.1.1.0\lib\netstandard2.0\DustInTheWind.ConsoleTools.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="APP\App.config" />
+    <None Include="LOGICS\packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
